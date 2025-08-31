@@ -1,7 +1,7 @@
 // import React from 'react'
 import './App.css'
-import SignUpForm from './SignUpForm'
-import Dashboard from './Dashboard'
+import SignUpForm from './components/SignUpForm'
+import Dashboard from './components/Dashboard'
 import { Routes, Route } from 'react-router-dom'
 function App() {
 
