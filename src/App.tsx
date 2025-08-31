@@ -12,7 +12,7 @@ function App() {
         <Route path="/" element={<SignUpForm />} />
 
         {/* Dashboard after login */}
-        <Route path="/dashboard" element={<Dashboard user={{ name: "Jonas", email: "jonas@example.com" }} onSignOut={() => alert("Signed out")} />} />
+        <Route path="/dashboard" element={<Dashboard  />} />
       </Routes>
     </>
   )
