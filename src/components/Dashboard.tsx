@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import icon from "../assets/icon.svg";
 import trash from "../assets/trash-2.svg";
 
+const serverUrl = "https://hdelite-backend.vercel.app/"
+
 interface Note {
     _id: string;
     note: string;
@@ -43,7 +45,7 @@ const Dashboard: React.FC = () => {
         if (!user.email) return;
         try {
             const token = localStorage.getItem("authToken");
-            const res = await fetch("http://localhost:5000/api/notes", {
+            const res = await fetch(`${serverUrl}/api/notes`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -80,7 +82,7 @@ const Dashboard: React.FC = () => {
         if (!newNote.trim()) return;
         try {
             const token = localStorage.getItem("authToken");
-            const res = await fetch("http://localhost:5000/api/notes/", {
+            const res = await fetch(`${serverUrl}/api/notes`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -105,7 +107,7 @@ const Dashboard: React.FC = () => {
             if (confirm("Are you sure you want to delete this note?")) {
 
                 const token = localStorage.getItem("authToken");
-                const res = await fetch(`http://localhost:5000/api/notes/${noteId}`, {
+                const res = await fetch(`${serverUrl}/api/notes/${noteId}`, {
                     method: "DELETE",
                     headers: {
                         Authorization: `Bearer ${token}`,

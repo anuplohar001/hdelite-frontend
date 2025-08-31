@@ -4,7 +4,7 @@ import icon from '../assets/icon.svg';
 import googleIcon from '../assets/google.svg';
 
 
-const serverUri = "http://localhost:5000";
+const serverUri = "https://hdelite-backend.vercel.app";
 
 interface FormData {
     name: string;
@@ -197,7 +197,7 @@ const SignUpForm: React.FC = () => {
 
     const handleGoogleLogin = () => {
 
-        const response = window.location.href = "http://localhost:5000/api/auth/google";
+        const response = window.location.href = `${serverUri}/api/auth/google`;
         console.log("Google login response", response)
     };
 
