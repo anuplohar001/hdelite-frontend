@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import icon from './assets/icon.svg';
+import googleIcon from './assets/google.svg';
+
+
 const serverUri = "http://localhost:5000";
 
 interface FormData {
@@ -31,6 +34,7 @@ interface ApiResponse {
 }
 
 const SignUpForm: React.FC = () => {
+
     const [formData, setFormData] = useState<FormData>({
         name: '',
         dateOfBirth: '',
@@ -45,6 +49,7 @@ const SignUpForm: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState("");
     const [otpSent, setOtpSent] = useState(false);
+    const [otpPending, setOtpPending] = useState(false)
 
     const validateEmail = (email: string): boolean => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -128,7 +133,7 @@ const SignUpForm: React.FC = () => {
             const data: ApiResponse = await response.json();
             console.log('API Response:', data);
             if (data.success) {
-                localStorage.setItem('token', data.token!);
+                localStorage.setItem('authToken', data.token!);
                 localStorage.setItem('user', JSON.stringify(data.user));
                 navigate('/dashboard');
 
@@ -150,6 +155,7 @@ const SignUpForm: React.FC = () => {
         }
 
         try {
+            setOtpPending(true)
             const res = await fetch(`${serverUri}/api/auth/send-otp`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -160,6 +166,7 @@ const SignUpForm: React.FC = () => {
             if (res.ok) {
                 setMessage("OTP sent to your email!");
                 setOtpSent(true);
+                setOtpPending(false)
             } else {
                 setMessage(data.message || "Failed to send OTP");
             }
@@ -189,8 +196,9 @@ const SignUpForm: React.FC = () => {
     };
 
     const handleGoogleLogin = () => {
-            
-        window.location.href = "http://localhost:5000/api/auth/google";
+
+        const response = window.location.href = "http://localhost:5000/api/auth/google";
+        console.log("Google login response", response)
     };
 
     return (
@@ -280,7 +288,7 @@ const SignUpForm: React.FC = () => {
                                 type="text"
                                 value={formData.otp}
                                 onChange={handleInputChange("otp")}
-                                className="w-full px-4 py-3 border rounded-xl"
+                                className="w-full px-4 py-2 border rounded-xl"
                                 placeholder="Enter OTP"
                             />
                             {errors.otp && (
@@ -297,7 +305,7 @@ const SignUpForm: React.FC = () => {
                     )}
 
 
-                    
+
 
                     {/* OTP Request */}
                     {!otpSent && (
@@ -307,10 +315,16 @@ const SignUpForm: React.FC = () => {
                             className="w-full py-2 px-4 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-700"
                         >
                             Get OTP
+                            {
+                                otpPending && (
+                                <div className="mb-0 ml-4 w-5 h-5 border-t-3 border-b-cyan-200 rounded-full animate-spin inline-block" aria-hidden="true"></div>
+                                )
+
+                            }
                         </button>
                     )}
 
-                   
+
 
 
                     <button
@@ -322,8 +336,9 @@ const SignUpForm: React.FC = () => {
                     </button>
                     <button
                         onClick={handleGoogleLogin}
-                        className="w-full py-2 px-4 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-700"
+                        className="w-full py-2 px-4 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-700 flex justify-center items-center gap-2"
                     >
+                        <img src={googleIcon} alt="googleIcon" height={20} width={20} />
                         Sign in with Google
                     </button>
                 </form>
@@ -342,7 +357,7 @@ const SignUpForm: React.FC = () => {
                     </button>
                 </div>
 
-                
+
             </div>
         </div>
     );
