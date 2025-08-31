@@ -28,6 +28,7 @@ const Dashboard: React.FC = () => {
             setUser({ name: name || "", email: email || "" });
         }
     }, [token]);
+    
 
     // Load user from localStorage
     useEffect(() => {
