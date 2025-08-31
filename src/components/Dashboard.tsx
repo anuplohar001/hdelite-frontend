@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import icon from "../assets/icon.svg";
 import trash from "../assets/trash-2.svg";
 
-const serverUrl = "https://hdelite-backend.vercel.app/"
+const serverUrl = "https://hdelite-backend.vercel.app"
 
 interface Note {
     _id: string;
