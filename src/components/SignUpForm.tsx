@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import icon from './assets/icon.svg';
-import googleIcon from './assets/google.svg';
+import icon from '../assets/icon.svg';
+import googleIcon from '../assets/google.svg';
 
 
 const serverUri = "http://localhost:5000";

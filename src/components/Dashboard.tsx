@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import icon from "./assets/icon.svg";
-import trash from "./assets/trash-2.svg";
+import icon from "../assets/icon.svg";
+import trash from "../assets/trash-2.svg";
 
 interface Note {
     _id: string;
